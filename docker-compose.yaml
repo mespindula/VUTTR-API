@@ -4,7 +4,7 @@ services:
     build:
       context: ./
       dockerfile: ./Dockerfile
-    image: vuttr_api/api
+    image: vuttr_api
     ports:
       - '3000:3000'
       - '5005:5005'

@@ -15,4 +15,4 @@ SHELL ["/bin/sh", "-c"]
 EXPOSE 5005
 EXPOSE 3000
 
-CMD java ${ADDITIONAL_OPTS} -jar usuario_service.jar --spring.profiles.active=${PROFILE}
+CMD java ${ADDITIONAL_OPTS} -jar vuttr_api.jar --spring.profiles.active=${PROFILE}
