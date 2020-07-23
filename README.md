@@ -17,3 +17,4 @@ Very Useful Tools to Remember
 	
 # Docker
 	https://hub.docker.com/r/mespindula/vuttr-api
+	docker run -it -p 3000:3000 mespindula/vuttr-api:0.0.1-SNAPSHOT
