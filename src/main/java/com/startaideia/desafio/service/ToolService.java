@@ -14,6 +14,9 @@ import com.startaideia.desafio.dto.ToolDTO;
 import com.startaideia.desafio.model.Tag;
 import com.startaideia.desafio.model.Tool;
 import com.startaideia.desafio.repository.ToolRepository;
+import com.startaideia.desafio.repository.specs.SearchCriteria;
+import com.startaideia.desafio.repository.specs.SearchOperation;
+import com.startaideia.desafio.repository.specs.ToolSpecification;
 
 @Service
 public class ToolService {
@@ -66,4 +69,11 @@ public class ToolService {
 		Optional<Tag> optTag = tagService.findByTagName(tagName);
 		return optTag.isPresent() ? optTag.get().getTools() : new ArrayList<Tool>();
 	}
+	
+	public Iterable<Tool> findByTitle(String title) {
+		ToolSpecification spec = new ToolSpecification();
+    	spec.add(new SearchCriteria("title", title, SearchOperation.EQUAL));
+    	return toolRepository.findAll(spec);
+	}
+	
 }

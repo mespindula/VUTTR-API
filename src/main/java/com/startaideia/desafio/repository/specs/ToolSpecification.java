@@ -10,15 +10,15 @@ import javax.persistence.criteria.Root;
 
 import org.springframework.data.jpa.domain.Specification;
 
-import com.startaideia.desafio.model.Tag;
+import com.startaideia.desafio.model.Tool;
 
-public class TagSpecification implements Specification<Tag> {
-
-	private static final long serialVersionUID = -2809367274761226501L;
+public class ToolSpecification implements Specification<Tool> {
+	
+	private static final long serialVersionUID = -4515260939047591118L;
 	
 	private List<SearchCriteria> list;
-
-    public TagSpecification() {
+	
+	public ToolSpecification() {
         this.list = new ArrayList<>();
     }
 
@@ -27,7 +27,7 @@ public class TagSpecification implements Specification<Tag> {
     }
 
 	@Override
-	public Predicate toPredicate(Root<Tag> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
+	public Predicate toPredicate(Root<Tool> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
 		
 		List<Predicate> predicates = new ArrayList<>();
 		

@@ -59,12 +59,31 @@ public class ToolController {
 		return ResponseEntity.noContent().build();
 	}
      
-     @GetMapping
-     @ApiOperation(value = "Lista todas as ferramentas cadastrados na base de dados")
-     public List<ToolDTO> list() {
-    	 List<ToolDTO> dtoList = new ArrayList<ToolDTO>();
-    	 Iterable<Tool> tools = toolService.findAll();
+	@GetMapping
+	@ApiOperation(value = "Lista todas as ferramentas cadastradas na base de dados")
+    public List<ToolDTO> list() {
+		List<ToolDTO> dtoList = new ArrayList<ToolDTO>();
+    	Iterable<Tool> tools = toolService.findAll();
 
+    	tools.forEach(tool -> {
+    		ToolDTO dto = mapper.map(tool, ToolDTO.class);
+    		dto.setTags(new ArrayList<String>());
+    		 
+    		tool.getTags().forEach(tag -> {
+    			dto.addTag(tag.getTagName());
+    		});
+    		dtoList.add(dto);
+    	});
+ 
+         return dtoList;
+     }
+     
+	 @GetMapping("{tag}")
+     @ApiOperation(value = "Lista as ferramentas conforme a TAG informada")
+     public List<ToolDTO> getByTag(@RequestParam(name = "tag", required = false) final String tagName) {
+    	 List<ToolDTO> dtoList = new ArrayList<ToolDTO>();
+    	 Iterable<Tool> tools = toolService.findByTagName(tagName);
+    	 
     	 tools.forEach(tool -> {
     		 ToolDTO dto = mapper.map(tool, ToolDTO.class);
     		 dto.setTags(new ArrayList<String>());
@@ -78,11 +97,11 @@ public class ToolController {
          return dtoList;
      }
      
-     @GetMapping("/{tag}")
-     @ApiOperation(value = "Lista as ferramentas conforme a TAG informada")
-     public List<ToolDTO> get(@RequestParam("tag") final String tagName) {
+	 @GetMapping("/title/{title}")
+     @ApiOperation(value = "Lista as ferramentas conforme o título informado")
+     public List<ToolDTO> getByTitle(@PathVariable final String title) {
     	 List<ToolDTO> dtoList = new ArrayList<ToolDTO>();
-    	 Iterable<Tool> tools = toolService.findByTagName(tagName);
+    	 Iterable<Tool> tools = toolService.findByTitle(title);
     	 
     	 tools.forEach(tool -> {
     		 ToolDTO dto = mapper.map(tool, ToolDTO.class);
